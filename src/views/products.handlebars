@@ -1,0 +1,42 @@
+<h2>Listado de Productos</h2>
+<hr>
+
+{{>menu}}
+
+<hr>
+
+<div>
+  <a href="/products?page={{pagination.page}}&sort=asc">Ordenar por Menor Precio</a>
+  <hr>
+  <a href="/products?page={{pagination.page}}&sort=desc">Ordenar por Mayor Precio</a>
+  <hr>
+</div>
+
+<div>
+  <form action="/api/carts" method="post">
+        <button type="submit">Crear Carrito</button>
+  </form>
+</div>
+
+<ul>
+  {{#each products}} <li>
+      <a href="/products/{{this.id}}">
+        Producto: {{this.title}} | Precio: ${{this.price}}
+      </a>
+    </li>
+  {{/each}}
+</ul>
+
+<div>
+  {{#if pagination.hasPrevPage}}
+    <a href="/products?page=1">Primera Página</a>
+    <a href="{{pagination.prevLink}}">Anterior</a>
+  {{/if}}
+
+  <span>Página {{pagination.page}} de {{pagination.totalPages}}</span>
+
+  {{#if pagination.hasNextPage}}
+    <a href="{{pagination.nextLink}}">Siguiente</a>
+    <a href="/products?page={{pagination.totalPages}}">Última Página</a>
+  {{/if}}
+</div>
